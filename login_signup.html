@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .signup-container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        body {
+            background-color: #073eb48f;
+        }
+
+        .bgcolor1 {
+            background-color: purple;
+            color: #ffffff;
+        }
+
+        .bgcolor2 {
+            background-color: rgba(233, 199, 6, 0.884);
+            color: #ffffff;
+        }
+
+        .reg-card {
+            border: 2px solid black;
+            width: 400px;
+            padding: 0px 0px 20px 0px;
+            background-color: #ffffff;
+            margin: 50px 0px;
+        }
+
+        .registration {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form {
+            text-decoration: none;
+        }
+
+        .input {
+            width: 288px;
+            padding: 12px 0px;
+        }
+
+        .icon {
+            padding: 12px 14px;
+            color: #ffffff;
+            text-align: center;
+            margin: 0px 0px 0px 10px;
+            display: inline;
+        }
+
+
+        .checkbox {
+            margin: 23px 12px 13px 31px;
+        }
+        .btn {
+            margin: 0px 12px 13px 61px;
+            width: 255px;
+        }
+
+        .social-icon {
+            align-items: center;
+            padding: 20px;
+
+        }
+
+        .s-icon {
+            width: 50%;
+        }
+
+        .fa-facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        .fa-twitter {
+            background: #55ACEE;
+            color: white;
+        }
+
+        .fa-google {
+            background: #dd4b39;
+            color: white;
+        }
+        .error{
+            padding: 0px 25px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="container signup-container">
+            <div class="reg-card">
+                <div class="registration bgcolor1" id="fpassword">
+                    <h2> Sign Up</h2>
+                </div>
+
+                <form action="" onsubmit="return validateRegistrationForm()">
+                    <!--user name-->
+                    <span><a href=""><i class="fa fa-user icon bgcolor1"></i></a></span>
+                    <input id="username" class="input" type="text" placeholder="Username">
+                    <span id="usernameError" class="error"></span><br><br>
+
+                    <!--Email-->
+                    <span><a href=""><i class="fa fa-envelope icon bgcolor1"></i></a></span>
+                    <input id="email" class="input" type="email" placeholder="E-mail" required>
+                    <span id="emailError" class="error"></span><br><br>
+
+                    <!--password-->
+                    <span><a href=""><i class="fa fa-key icon bgcolor1"></i></a></span>
+                    <input type="password" placeholder="Password" class="input" id="password">
+                    <span id="passwordError" class="error"></span><br><br>
+
+                    <!--confirm password-->
+                    <span><a href=""><i class="fa fa-key icon bgcolor1"></i></a></span>
+                    <input type="password" id="confirmPassword" class="input" placeholder="Confirm Password">
+                    <span id="confirmPasswordError" class="error"></span><br><br>
+
+                    <input class="checkbox" type="checkbox" id="agree">
+                    <label for="agree">I agree to the terms and services</label><br>
+                    <span id="checkboxError" class="error"></span><br>
+
+                    <button type="submit" id="registerBtn" class="input btn bgcolor1 btn">Register</button>
+
+                    <p style="text-align: center;">Are you ready to login? <a href="#login">Login here</a></p>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Validation for Registration Form
+        function validateRegistrationForm() {
+            var username = document.getElementById("username").value;
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var agree = document.getElementById("agree").value;
+            var passwordError = document.getElementById("passwordError");
+            var confirmPasswordError = document.getElementById("confirmPasswordError");
+            var agreeCheckbox = document.getElementById("agree");
+            var checkboxError = document.getElementById("checkboxError");
+
+            // Regular expressions for password validation
+            var uppercaseRegex = /[A-Z]/;
+            var lowercaseRegex = /[a-z]/;
+            var digitRegex = /\d/;
+            var asciiRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/;
+
+            // password does not empty
+            if (password.trim() === "") {
+                passwordError.innerHTML = "Password does not empty";
+                return false;
+            }
+               // Check if the password meets the criteria
+            if (!uppercaseRegex.test(password)) {
+                passwordError.innerHTML = "Password must contain at least 1 uppercase letter";
+                return false;
+            }
+
+            if (!lowercaseRegex.test(password)) {
+                passwordError.innerHTML = "Password must contain at least 1 lowercase letter";
+                return false;
+            }
+
+            if (!digitRegex.test(password)) {
+                passwordError.innerHTML = "Password must contain at least 1 digit";
+                return false;
+            }
+
+            if (!asciiRegex.test(password)) {
+                passwordError.innerHTML = "Password must contain at least 1 ASCII character";
+                return false;
+            }
+
+            // Clear any previous error messages
+            passwordError.innerHTML = "";
+
+            // Check if confirm password matches
+            if (password !== confirmPassword) {
+                confirmPasswordError.innerHTML = "Passwords do not match";
+                return false;
+            }
+
+            if (!document.getElementById("agree").checked) {
+            checkboxError.innerHTML = "Please agree to the terms and services";
+            return false;
+            }
+            // Clear any previous error messages for confirm password
+            confirmPasswordError.innerHTML = "";
+             
+            // If all criteria are met, the form can be submitted
+            return true;
+        }
+    </script>   
+    
+
+    <br><br><br><br><br><br><br><br>
+
+    <div class="container signup-container">
+       
+            <div class="reg-card">
+                <div class="registration bgcolor2" id="login">
+                    <h2>LOGIN</h2>
+                </div>
+                <form action="">
+                <div class="form">
+    
+                    <span><a href=""><i class="fa fa-user icon bgcolor2"></i></a></span>
+                    <input class="input" type="text" placeholder="Username" required><br><br>
+    
+                    <span><a href=""><i class="fa fa-key icon bgcolor2"></i></a></span>
+                    <input  type="password" placeholder="Password" id="password"class="input" required>
+                    <!-- Add the element for displaying password error -->
+                    <span id="passwordError" class="error"></span><br><br>
+    
+                    <input class="checkbox" type="checkbox" id="agree">
+                    <label for="agree">Remember me</label>
+                    <p style="display: inline;padding: 0px 63px;"><a href="#fpassword">Forget Password?</a></p>
+                    <!-- Change the type of the button to "submit" -->
+                    <button type="submit" class="input checkbox bgcolor2 btn" style="border: none;">SIGN IN</button>
+                </div>
+    
+            </div>
+        </form>
+        
+    </div>
+    </div>
+    
+
+</body>
+
+</html>
